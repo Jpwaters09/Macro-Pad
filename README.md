@@ -1,5 +1,18 @@
 # Macro Pad
+
 A macro pad featuring 12 customisable mechanical keys, a customisable rotary encoder with button, and an OLED display. Based on the RP2354A microcontroller.
+
+##
+
+<img src="Images/Schematic.png" height="150px">
+<img src="Images/PCB Layout.png" height="150px">
+<img src="Images/PCB Front View.png" height="150px">
+<img src="Images/PCB Back View.png" height="150px">
+<img src="Images/Home View.png" height="150px">
+<img src="Images/Top View.png" height="150px">
+<img src="Images/Side View.png" height="150px">
+
+##
 
 ### How to use
 Plug the Macro Pad into your Windows, Linux, or macOS device using a USB C cable to begin using it immediately.
