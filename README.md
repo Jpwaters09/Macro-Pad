@@ -1,6 +1,6 @@
 # Macro Pad
 
-A macro pad featuring 12 customisable mechanical keys, a customisable rotary encoder with button, and an OLED display. Based on the RP2354A microcontroller and micropython firmware.
+A macro pad featuring 12 customisable mechanical keys, a customisable rotary encoder with button, and an OLED display. Based on the RP2354A microcontroller and MicroPython firmware.
 
 ##
 
@@ -16,11 +16,14 @@ A macro pad featuring 12 customisable mechanical keys, a customisable rotary enc
 
 ##
 
-### How to use (coming soon)
-Plug the Macro Pad into your Windows, Linux, or macOS device using a USB C cable to begin using it immediately.
-To change key mappings, hold to the rotary encoder button for 2 seconds, then press the key that you want to change or rotate/click the rotary encoder. The OLED display will show a list of options for that specific key/rotary encoder. Use the rotary encoder to scroll through the options and press the rotary encoder to select the option.
+### How to Use
+Plug the Macro Pad into your Windows, Linux, or macOS device using a USB C cable to begin using it immediately. The OLED display shows the function of each key, and the rotary encoder. To enter safe mode (REPL) hold the rotary encoder button then plug the device into a computer, you can then connect to the REPL.
 
-### Why I made this
+### Coming Soon
+Change key mappings directly on the device by holding the rotary encoder button for 2 seconds. Then press the key you want to modify, or rotate/click the encoder to configure it. The OLED display will show a list of available options for the selected input. Use the rotary encoder to scroll through options and press it to confirm your selection.
+A custom MicroPython port will also be included.
+
+### Why I Made This
 I built this project to create a fully customisable and open-sourced macro pad. It has also served as a way to develop my skills in schematic design, PCB layout, and 3D Modelling.
 
 ##
