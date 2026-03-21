@@ -8,6 +8,13 @@ def centreX(display, text, y, colour):
     x = 64 - (textPixelLength // 2)
     
     display.text(text, x, y, colour)
+    
+def safeModeScreen(display):
+    display.text("Device in", 28, 6, 1)
+    display.text("Safe Mode", 28, 17, 1)
+    display.text("REPL Active", 20, 41, 1)
+
+    display.show()
 
 def startUpScreen(display, version):
     display.fill(0)

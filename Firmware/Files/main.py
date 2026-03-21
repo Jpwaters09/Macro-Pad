@@ -10,11 +10,12 @@ import _thread
 from keys import *
 from consumer import ConsumerInterface
 import json
+import sys
 
 with open("config.json", "r") as file:
     data = json.load(file)
     
-    usbHidMode = data["USB HID Mode"]
+    usbHidMode = data["USB HID On"]
     
     productManufacturer = data["Product Manufacturer"]
     productName = data["Product Name"]
@@ -22,30 +23,17 @@ with open("config.json", "r") as file:
     vendorID = data["Vendor ID"]
     productID = data["Product ID"]
     
-    version = data["Version"]
+    hardwareVersion = data["Hardware Version"]
+    firmwareVersion = data["Firmware Version"]
+
+hardwareVersionMajor, hardwareVersionMinor, hardwareVersionMicro = map(int, hardwareVersion.lstrip("v").split("."))
+hardwareVersionBcd = (hardwareVersionMajor << 8) | (hardwareVersionMinor << 4) | hardwareVersionMicro
 
 keyboard = KeyboardInterface()
 consumer = ConsumerInterface()
 
-if usbHidMode:
-    usb.device.get().init(keyboard,
-                           consumer,
-                           builtin_driver=True,
-                           manufacturer_str=productManufacturer,
-                           product_str=productName,
-                           serial_str=serialNumber,
-                           id_vendor=vendorID,
-                           id_product=productID)
-
 i2c = I2C(sda=Pin(0), scl=Pin(1))
 display = ssd1306.SSD1306_I2C(128, 64, i2c)
-
-display.contrast(100)
-startUpScreen(display, version)
-increaseBrightness(display, speed=0.05)
-
-encoderA = Pin(3, Pin.IN, Pin.PULL_UP)
-encoderB = Pin(4, Pin.IN, Pin.PULL_UP)
 
 macroButtonPins = [2,
                    5, 6, 7, 8,
@@ -56,6 +44,35 @@ macroButtons = []
 
 for pin in macroButtonPins:
     macroButtons.append(Pin(pin, Pin.IN, Pin.PULL_UP))
+
+if not macroButtons[0].value():
+    safeModeScreen(display)
+    
+    try:
+        while True:
+            pass
+    
+    except KeyboardInterrupt:
+        print("REPL Connected")
+        sys.exit()
+
+if usbHidMode:
+    usb.device.get().init(keyboard,
+                          consumer,
+                          builtin_driver=True,
+                          manufacturer_str=productManufacturer,
+                          product_str=productName,
+                          serial_str=serialNumber,
+                          id_vendor=vendorID,
+                          id_product=productID,
+                          bcd_device=hardwareVersionBcd)
+
+display.contrast(100)
+startUpScreen(display, firmwareVersion)
+increaseBrightness(display, speed=0.05)
+
+encoderA = Pin(3, Pin.IN, Pin.PULL_UP)
+encoderB = Pin(4, Pin.IN, Pin.PULL_UP)
 
 homeScreen(display)
 

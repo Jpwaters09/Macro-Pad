@@ -1,11 +1,12 @@
 {
-    "USB HID Mode": true,
+    "USB HID On": true,
     
     "Product Manufacturer": "Jacob Waters",
     "Product Name": "Macro Pad",
     "Serial Number": "JWMP000100",
-    "Vendor ID": 11914,
-    "Product ID": 5,
+    "Vendor ID": 4617,
+    "Product ID": 31291,
     
-    "Version": "v0.1.0"
+    "Hardware Version": "v1.0.0",
+    "Firmware Version": "v0.1.0"
 }
