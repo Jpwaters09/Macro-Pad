@@ -16,19 +16,27 @@ A macro pad featuring 12 customisable mechanical keys, a customisable rotary enc
 
 ##
 
-### How to Use
+## How to Use
 Plug the Macro Pad into your Windows, Linux, or macOS device using a USB C cable to begin using it immediately. The OLED display shows the function of each key, and the rotary encoder. To enter safe mode (REPL) hold the rotary encoder button then plug the device into a computer, you can then connect to the REPL.
 
-### Coming Soon
-Change key mappings directly on the device by holding the rotary encoder button for 2 seconds. Then press the key you want to modify, or rotate/click the encoder to configure it. The OLED display will show a list of available options for the selected input. Use the rotary encoder to scroll through options and press it to confirm your selection.
-A custom MicroPython port will also be included.
+## Coming Soon
+ - Change key mappings directly on the device by holding the rotary encoder button for 2 seconds. Then press the key you want to modify, or rotate/click the encoder to configure it. The OLED display will show a list of available options for the selected input. Use the rotary encoder to scroll through options and press it to confirm your selection. A custom MicroPython port will also be included.
+ - A Windows app that will allow you to update and configure settings for the Macro Pad.
 
-### Why I Made This
+## Why I Made This
 I built this project to create a fully customisable and open-sourced macro pad. It has also served as a way to develop my skills in schematic design, PCB layout, and 3D Modelling.
 
-##
+## Features
+ - USB C
+ - 12 macro buttons
+ - Rotary encoder with switch
+ - 128 x 64 OLED display
+ - 3D printable housing
+ - RP2354A microcontroller
+ - 2MB internal flash storage
+ - Micropython firmware
 
-### Bill Of Materials
+## Bill Of Materials
 |Item                          |Description                               |Quantity|Unit Price (£)|Total Price (£) Inc. Tax|URL                                                                                                               |
 |------------------------------|------------------------------------------|--------|--------------|------------------------|------------------------------------------------------------------------------------------------------------------|
 |KGM21AR50J106KU               |10uf M2012 6.3V X5R 10% Ceramic Capacitor |2       |£0.15         |£0.30                   |https://www.mouser.co.uk/ProductDetail/KYOCERA-AVX/KGM21AR50J106KU?qs=Jm2GQyTW%2FbgeDRGArSXNqw%3D%3D              |
@@ -37,7 +45,7 @@ I built this project to create a fully customisable and open-sourced macro pad. 
 |04026D475KAT2A                |4.7u M1005 6.3V X5R 10% Ceramic Capacitor |4       |£0.25         |£0.99                   |https://www.mouser.co.uk/ProductDetail/KYOCERA-AVX/04026D475KAT2A?qs=NnBbvHfz1MlsASN%2FEU18Fg%3D%3D               |
 |KGM05CR50J106MH               |10uf M1005 6.3V X5R 20% Ceramic Capacitor |1       |£0.29         |£0.29                   |https://www.mouser.co.uk/ProductDetail/KYOCERA-AVX/KGM05CR50J106MH?qs=Jm2GQyTW%2FbhpTcrSSOU%2Fog%3D%3D            |
 |M22-2010446                   |Pin Header                                |1       |£0.19         |£0.19                   |https://www.mouser.co.uk/ProductDetail/Harwin/M22-2010446?qs=xxdqPuaJ%252Ba1u1bOnRTZmWA%3D%3D                     |
-|217179-0001                   |USB 2.0 TYPE C Connecter                  |1       |£0.62         |£0.62                   |https://www.mouser.co.uk/ProductDetail/Molex/217179-0001?qs=DRkmTr78QAQqCH4BoIR1xg%3D%3D                          |
+|217179-0001                   |USB 2.0 Type C Connecter                  |1       |£0.62         |£0.62                   |https://www.mouser.co.uk/ProductDetail/Molex/217179-0001?qs=DRkmTr78QAQqCH4BoIR1xg%3D%3D                          |
 |Abracon AOTA-B201610S3R3-101-T|3.3uH Inductor                            |1       |£0.16         |£0.16                   |https://www.mouser.co.uk/ProductDetail/ABRACON/AOTA-B201610S3R3-101-T?qs=%252BXxaIXUDbq0IZvJW%2F2mv4w%3D%3D       |
 |RT0402CRD075K1L               |5.1KOhms M1005 50V 60mW 0.25% Resistor    |2       |£0.29         |£0.58                   |https://www.mouser.co.uk/ProductDetail/YAGEO/RT0402CRD075K1L?qs=gY0y7AQI9SM5pqO1QuZl5A%3D%3D                      |
 |NT0402BRD071KL                |1KOhms M1005 75V 50mW 0.1% Resistor       |2       |£0.47         |£0.95                   |https://www.mouser.co.uk/ProductDetail/YAGEO/NT0402BRD071KL?qs=QpmGXVUTftHMxPCRkfl19A%3D%3D                       |
