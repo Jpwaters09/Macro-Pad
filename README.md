@@ -56,6 +56,6 @@ I built this project to create a fully customisable and open-sourced macro pad. 
 |SSD1306               |128x64 I2C OLED Display                                                |1       |$0.9900       |$0.99                   |https://www.aliexpress.com/item/1005008995931139.html|
 |PEC11R-4225F-S0024    |Plugin Encoders RoHS                                                   |1       |$1.8539       |$1.85                   |https://www.lcsc.com/product-detail/C18198884.html   |
 |Cherry MX Keycaps     |Blank black keycap for Cherry MX switches                              |20      |$0.1500       |$3.00                   |https://www.aliexpress.com/item/1005007572331245.html|
-|Cherry MX Red Switch  |Cherry MX red 3-pin linear switches                                    |30      |$0.61         |$18.30                  |https://www.aliexpress.com/item/1005008811331383.html|
+|Cherry MX Red Switch  |Cherry MX red 3-pin linear switches                                    |16      |$0.65         |$10.43                  |https://www.aliexpress.com/item/4000100166477.html   |
 |RP2354A               |QFN-60(7x7) Microcontrollers RoHS                                      |1       |$1.4615       |$1.46                   |https://www.lcsc.com/product-detail/C41378174.html   |
 |2171790001            |USB 2.0 5A 1 16P -40℃~+85℃ SMD USB Connector Assemblies RoHS         |1       |$0.6229       |$0.62                   |https://www.lcsc.com/product-detail/C3197684.html    |
