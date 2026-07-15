@@ -32,13 +32,13 @@ hardwareVersionBcd = (hardwareVersionMajor << 8) | (hardwareVersionMinor << 4) |
 keyboard = KeyboardInterface()
 consumer = ConsumerInterface()
 
-i2c = I2C(sda=Pin(0), scl=Pin(1))
+i2c = I2C(sda=Pin("OLED_SDA"), scl=Pin("OLED_SCL"))
 display = ssd1306.SSD1306_I2C(128, 64, i2c)
 
-macroButtonPins = [2,
-                   5, 6, 7, 8,
-                   9, 10, 11, 12,
-                   13, 14, 15, 16]
+macroButtonPins = ["ENCODER_BTN",
+                   "BTN_1", "BTN_2", "BTN_3", "BTN_4",
+                   "BTN_5", "BTN_6", "BTN_7", "BTN_8",
+                   "BTN_9", "BTN_10", "BTN_11", "BTN_12"]
 
 macroButtons = []
 
@@ -71,8 +71,8 @@ display.contrast(100)
 startUpScreen(display, firmwareVersion)
 increaseBrightness(display, speed=0.05)
 
-encoderA = Pin(3, Pin.IN, Pin.PULL_UP)
-encoderB = Pin(4, Pin.IN, Pin.PULL_UP)
+encoderA = Pin("ENCODER_A", Pin.IN, Pin.PULL_UP)
+encoderB = Pin("ENCODER_B", Pin.IN, Pin.PULL_UP)
 
 homeScreen(display)
 
@@ -88,7 +88,7 @@ last_encoder_time = 0
 def encoder_handler(pin):
     global encoder_delta, encoder_moved, last_encoder_time, last_press
     
-    now = time.ticks_ms
+    now = time.ticks_ms()
     
     if time.ticks_diff(now, last_encoder_time) < 5:
         return
