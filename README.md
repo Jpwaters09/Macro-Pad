@@ -1,6 +1,6 @@
 # Macro Pad
 
-A macro pad featuring 12 customisable mechanical keys, a customisable rotary encoder with button, and an OLED display. Based on the RP2354A microcontroller and MicroPython firmware.
+A macro pad featuring 12 customisable mechanical keys, a customisable rotary encoder with button, and an OLED display. Based on the RP2354A microcontroller and custom MicroPython firmware.
 
 ##
 
@@ -29,12 +29,12 @@ I built this project to create a fully customisable and open-sourced macro pad. 
 ## Features
  - USB C
  - 12 macro buttons
- - Rotary encoder with switch
+ - Rotary encoder with button
  - 128 x 64 OLED display
  - 3D printable housing
  - RP2354A microcontroller
  - 2MB internal flash storage
- - Micropython firmware
+ - Custom Micropython firmware
 
 ## Bill Of Materials
 |Item                  |Description                                                            |Quantity|Unit Price (£)|Total Price (£) Inc. Tax|URL                                                  |
