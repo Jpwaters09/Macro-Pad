@@ -9,9 +9,8 @@ A macro pad featuring 12 customisable mechanical keys, a customisable rotary enc
   <img src="Images/PCB Layout.png" height="150px">
   <img src="Images/PCB Front View.png" height="150px">
   <img src="Images/PCB Back View.png" height="150px">
-  <img src="Images/Home View.png" height="150px">
-  <img src="Images/Top View.png" height="150px">
-  <img src="Images/Side View.png" height="150px">
+  <img src="Images/Macro Pad.png" height="150px">
+  <img src="Images/Macro Pad On.png" height="150px">
 </div>
 
 ##
