@@ -12,7 +12,7 @@ _INTERFACE_PROTOCOL_MOUSE = const(0x02)
 
 class MouseInterface(HIDInterface):
     # A basic three button USB mouse HID interface
-    def __init__(self, interface_str="MicroPython Mouse"):
+    def __init__(self, interface_str="Macro Pad Mouse"):
         super().__init__(
             _MOUSE_REPORT_DESC,
             protocol=_INTERFACE_PROTOCOL_MOUSE,
@@ -21,9 +21,9 @@ class MouseInterface(HIDInterface):
         self._l = False  # Left button
         self._m = False  # Middle button
         self._r = False  # Right button
-        self._buf = bytearray(3)
+        self._buf = bytearray(4)
 
-    def send_report(self, dx=0, dy=0):
+    def send_report(self, dx=0, dy=0, wheel=0):
         b = 0
         if self._l:
             b |= 1 << 0
@@ -42,7 +42,7 @@ class MouseInterface(HIDInterface):
         while self.busy():
             machine.idle()
 
-        struct.pack_into("Bbb", self._buf, 0, b, dx, dy)
+        struct.pack_into("Bbbb", self._buf, 0, b, dx, dy, wheel)
 
         return super().send_report(self._buf)
 
@@ -64,6 +64,11 @@ class MouseInterface(HIDInterface):
         if not -127 <= dy <= 127:
             raise ValueError("dy")
         return self.send_report(dx, dy)
+    
+    def scroll(self, amount):
+        if not -127 <= amount <= 127:
+            raise ValueError("amount")
+        return self.send_report(wheel=amount)
 
 
 # Basic 3-button mouse HID Report Descriptor.
@@ -89,10 +94,11 @@ _MOUSE_REPORT_DESC = (
             b'\x05\x01'  # Usage Page (Generic Desktop),
                 b'\x09\x30'  # Usage (X),
                 b'\x09\x31'  # Usage (Y),
+                b'\x09\x38'  # Usage (Wheel),
                 b'\x15\x81'  # Logical Minimum (-127),
                 b'\x25\x7F'  # Logical Maximum (127),
                 b'\x75\x08'  # Report Size (8),
-                b'\x95\x02'  # Report Count (2),
+                b'\x95\x03'  # Report Count (3),
                 b'\x81\x06'  # Input (Data, Variable, Relative), ;2 position bytes (X & Y)
         b'\xC0'  # End Collection
     b'\xC0'  # End Collection

@@ -3,10 +3,12 @@
     
     "Product Manufacturer": "Jacob Waters",
     "Product Name": "Macro Pad",
-    "Serial Number": "JWMP0001000001",
+    "Serial Number": "JWMP0100000001",
     "Vendor ID": 4617,
     "Product ID": 31291,
     
     "Hardware Version": "v1.0.0",
-    "Firmware Version": "v0.1.0"
+    "Firmware Version": "v1.0.0",
+    
+    "Sleep Time": 120000
 }

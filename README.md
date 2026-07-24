@@ -17,10 +17,9 @@ A macro pad featuring 12 customisable mechanical keys, a customisable rotary enc
 ##
 
 ## How to Use
-Plug the Macro Pad into your Windows, Linux, or macOS device using a USB C cable to begin using it immediately. The OLED display shows the function of each key, and the rotary encoder. To enter flash mode (REPL) hold the rotary encoder button then plug the device into a computer, you can then connect to the REPL.
+Plug the Macro Pad into your Windows, Linux, or macOS device using a USB C cable to begin using it immediately. The OLED display shows the function of each key, and the rotary encoder. To add, edit, or delete layers visit [Macro Pad Programmer](https://macropad.jpwaters09.com).
 
 ## Coming Soon
- - Change key mappings directly on the device by holding the rotary encoder button for 2 seconds. Then press the key you want to modify, or rotate/click the encoder to configure it. The OLED display will show a list of available options for the selected input. Use the rotary encoder to scroll through options and press it to confirm your selection. A custom MicroPython port will also be included.
  - A Windows app that will allow you to update and configure settings for the Macro Pad.
 
 ## Why I Made This
@@ -41,7 +40,7 @@ I built this project to create a fully customisable and open-sourced macro pad. 
 |----------------------|-----------------------------------------------------------------------|--------|--------------|------------------------|-----------------------------------------------------|
 |CL05A104KA5NNNC       |100nF ±10% 25V Ceramic Capacitor X5R 0402                              |100     |$0.0016       |$0.16                   |https://www.lcsc.com/product-detail/C100072.html     |
 |CC0402KRX5R5BB103     |10nF ±10% 6.3V Ceramic Capacitor X5R 0402                              |100     |$0.0012       |$0.12                   |https://www.lcsc.com/product-detail/C1853984.html    |
-|CL21B103KBANNNC       |10nF ±10% 50V Ceramic Capacitor X7R 0805                               |50      |$0.0066       |$0.33                   |https://www.lcsc.com/product-detail/C1710.html       |
+|HGC0805R7106K250NSLJ  |10uF ±10% 25V Ceramic Capacitor X7R 0805                               |5       |$0.1585       |$0.79                   |https://www.lcsc.com/product-detail/C33546010.html       |
 |ABM8-272-T3           |±30ppm 10pF ±30ppm SMD3225-4P Crystals RoHS                            |5       |$0.2902       |$1.45                   |https://www.lcsc.com/product-detail/C20625731.html   |
 |CL05C150JB5NNNC       |15pF ±5% 50V Ceramic Capacitor C0G 0402                                |100     |$0.0036       |$0.36                   |https://www.lcsc.com/product-detail/C86285.html      |
 |FRC0402J102 TS        |1kΩ 62.5mW 50V Thick Film Resistor ±100ppm/℃ ±5% 0402 Chip Resistor   |100     |$0.0008       |$0.08                   |https://www.lcsc.com/product-detail/C2906899.html    |

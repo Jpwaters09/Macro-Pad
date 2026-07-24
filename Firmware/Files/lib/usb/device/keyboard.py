@@ -18,7 +18,7 @@ class KeyboardInterface(HIDInterface):
             _KEYBOARD_REPORT_DESC,
             set_report_buf=bytearray(1),
             protocol=_INTERFACE_PROTOCOL_KEYBOARD,
-            interface_str="MicroPython Keyboard",
+            interface_str="Macro Pad Keyboard",
         )
         self._key_reports = [
             bytearray(_KEY_REPORT_LEN),
@@ -161,7 +161,7 @@ class KeyCode:
     EQUAL = 46  # = +
     OPEN_BRACKET = 47  # [ {
     CLOSE_BRACKET = 48  # ] }
-    BACKSLASH = 49  # \ |
+    BACKSLASH = 100  # \ |
     HASH = 50  # # ~
     SEMICOLON = 51  # ; :
     QUOTE = 52  # ' "
