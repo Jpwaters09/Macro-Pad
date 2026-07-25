@@ -1,12 +1,6 @@
 import framebuf
+from displayFunctions import *
 
-def centreX(display, text, y, colour):
-    textLength = len(text)
-    textPixelLength = textLength * 8
-    
-    x = 64 - (textPixelLength // 2)
-    
-    display.text(text, x, y, colour)
     
 def programmerScreen(display):
     display.fill(0)
@@ -20,7 +14,7 @@ def noLayersScreen(display):
     display.fill(0)
     
     display.text("No Layers Loaded", 0, 3, 1)
-    display.text("Add Layers using", 0, 18, 1)
+    display.text("Add Layers Using", 0, 18, 1)
     display.text("The Programmer", 8, 29, 1)
     display.text("macropad.", 28, 43, 1)
     display.text("jpwaters09.com", 8, 54, 1)

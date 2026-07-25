@@ -18,18 +18,13 @@ with open("config.json", "r") as file:
 
     usbHidMode = data["USB HID On"]
 
-    productManufacturer = data["Product Manufacturer"]
-    productName = data["Product Name"]
     serialNumber = data["Serial Number"]
-    vendorID = data["Vendor ID"]
-    productID = data["Product ID"]
 
-    hardwareVersion = data["Hardware Version"]
-    firmwareVersion = data["Firmware Version"]
+    softwareVersion = data["Software Version"]
     
     sleepTime = data["Sleep Time"]
 
-hardwareVersionMajor, hardwareVersionMinor, hardwareVersionMicro = map(int, hardwareVersion.lstrip("v").split("."))
+hardwareVersionMajor, hardwareVersionMinor, hardwareVersionMicro = map(int, "v1.0.0".lstrip("v").split("."))
 hardwareVersionBcd = (hardwareVersionMajor << 8) | (hardwareVersionMinor << 4) | hardwareVersionMicro
 
 keyboard = KeyboardInterface()
@@ -56,14 +51,14 @@ if usbHidMode:
                           consumer,
                           mouse,
                           builtin_driver=True,
-                          manufacturer_str=productManufacturer,
-                          product_str=productName,
+                          manufacturer_str="Jacob Waters",
+                          product_str="Macro Pad",
                           serial_str=serialNumber,
-                          id_vendor=vendorID,
-                          id_product=productID,
+                          id_vendor=4617,
+                          id_product=31291,
                           bcd_device=hardwareVersionBcd)
 
-startUpScreen(display, firmwareVersion)
+startUpScreen(display, softwareVersion)
 increaseBrightness(display, speed=0.02)
 
 layers = len(os.listdir("/Layers"))
