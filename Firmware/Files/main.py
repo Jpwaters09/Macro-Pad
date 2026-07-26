@@ -46,7 +46,7 @@ for pin in macroButtonPins:
 
 display.contrast(0)
 
-if activated:
+if activated or serialNumber:
     usb.device.get().init(keyboard,
                           consumer,
                           mouse,
@@ -61,7 +61,7 @@ if activated:
 startUpScreen(display, softwareVersion)
 increaseBrightness(display, speed=0.02)
 
-if not activated:
+if not activated or not serialNumber:
     notActivatedScreen(display)
     
     while True:
