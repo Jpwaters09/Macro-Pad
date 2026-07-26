@@ -16,7 +16,7 @@ import os
 with open("config.json", "r") as file:
     data = json.load(file)
 
-    usbHidMode = data["USB HID On"]
+    activated = data["Activated"]
 
     serialNumber = data["Serial Number"]
 
@@ -46,7 +46,7 @@ for pin in macroButtonPins:
 
 display.contrast(0)
 
-if usbHidMode:
+if activated:
     usb.device.get().init(keyboard,
                           consumer,
                           mouse,
@@ -60,6 +60,12 @@ if usbHidMode:
 
 startUpScreen(display, softwareVersion)
 increaseBrightness(display, speed=0.02)
+
+if not activated:
+    notActivatedScreen(display)
+    
+    while True:
+        pass
 
 layers = len(os.listdir("/Layers"))
 
@@ -306,5 +312,3 @@ while True:
 
                     with lock:
                         last_press = now
-
-    #time.sleep_ms(4)

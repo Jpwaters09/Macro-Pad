@@ -1,7 +1,6 @@
 import framebuf
 from displayFunctions import *
 
-    
 def programmerScreen(display):
     display.fill(0)
     
@@ -26,5 +25,24 @@ def startUpScreen(display, version):
     
     display.text("Macro Pad", 28, 15, 1)
     centreX(display, version, 47, 1)
+    
+    display.show()
+
+def updateScreen(display):
+    display.fill(0)
+    
+    display.text("Macro Pad", 28, 11, 1)
+    display.text("Updating...", 20, 47, 1)
+    
+    display.show()
+
+def notActivatedScreen(display):
+    display.fill(0)
+    
+    display.text("Not Activated", 12, 3, 1)
+    display.text("Activate At:", 16, 18, 1)
+    display.text("macropad.", 28, 29, 1)
+    display.text("jpwaters09.com/", 4, 40, 1)
+    display.text("Activate", 32, 51, 1)
     
     display.show()
