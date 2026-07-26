@@ -1,10 +1,8 @@
 {
     "USB HID On": true,
-    
     "Serial Number": "",
     "Software Version": "v1.0.0",
     "Firmware Version": "v1.28.0",
     "Device Name": "",
-    
     "Sleep Time": 120000
 }
