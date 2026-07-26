@@ -1,6 +1,6 @@
 # Macro Pad
 
-A macro pad featuring 12 customisable mechanical keys, a customisable rotary encoder with button, and an OLED display. Based on the RP2354A microcontroller and custom MicroPython firmware.
+A 12-key macro pad with a configurable rotary encoder and OLED display, built around the RP2354A microcontroller and custom MicroPython firmware. Fully programmable through a web-based configurator.
 
 ##
 
@@ -16,7 +16,11 @@ A macro pad featuring 12 customisable mechanical keys, a customisable rotary enc
 ##
 
 ## How to Use
-Plug the Macro Pad into your Windows, Linux, or macOS device using a USB C cable to begin using it immediately. The OLED display shows the function of each key, and the rotary encoder. To add, edit, or delete layers visit [Macro Pad Programmer](https://macropad.jpwaters09.com).
+Plug the Macro Pad into your Windows, Linux, or macOS device using a USB-C data cable, then go to the [Installation Website](https://macropad.jpwaters09.com/Install%20or%20Update) and follow the steps to install (or update) the Macro Pad firmware. This requires a browser that supports Web Serial (Chrome, Edge, Opera, or Firefox), Safari isn't supported.
+
+The OLED display shows the current layer and the function assigned to each key. Press and hold the rotary encoder button to switch layers.
+
+To configure the device (adding, editing, or deleting layers) visit the [Macro Pad Programmer](https://macropad.jpwaters09.com/Configurator).
 
 ## Coming Soon
  - A Windows app that will allow you to update and configure settings for the Macro Pad.
@@ -33,6 +37,9 @@ I built this project to create a fully customisable and open-sourced macro pad. 
  - RP2354A microcontroller
  - 2MB internal flash storage
  - Custom Micropython firmware
+ - Multiple programmable layers
+ - Web-based configurator (no software install)
+ - USB HID compliant (works instantly on any OS)
 
 ## Bill Of Materials
 |Item                  |Description                                                            |Quantity|Unit Price (£)|Total Price (£) Inc. Tax|URL                                                  |
