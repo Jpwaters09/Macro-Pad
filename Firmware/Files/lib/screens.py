@@ -28,3 +28,9 @@ def startUpScreen(display, version):
     centreX(display, version, 47, 1)
     
     display.show()
+
+def updateScreen(display):
+    display.text("Macro Pad", 28, 11, 1)
+    display.text("Updating...", 20, 47, 1)
+    
+    display.show()
