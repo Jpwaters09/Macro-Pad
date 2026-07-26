@@ -13,10 +13,10 @@ def noLayersScreen(display):
     display.fill(0)
     
     display.text("No Layers Loaded", 0, 3, 1)
-    display.text("Add Layers Using", 0, 18, 1)
-    display.text("The Programmer", 8, 29, 1)
-    display.text("macropad.", 28, 43, 1)
-    display.text("jpwaters09.com", 8, 54, 1)
+    display.text("Add Layers At:", 8, 18, 1)
+    display.text("macropad.", 28, 29, 1)
+    display.text("jpwaters09.com/", 4, 40, 1)
+    display.text("Configurator", 16, 51, 1)
     
     display.show()
 
