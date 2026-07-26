@@ -29,16 +29,12 @@ def startUpScreen(display, version):
     display.show()
 
 def updateScreen(display):
-<<<<<<< HEAD
     display.fill(0)
     
-=======
->>>>>>> bf6fbf85ad81311516e7025d72a618af91539d2c
     display.text("Macro Pad", 28, 11, 1)
     display.text("Updating...", 20, 47, 1)
     
     display.show()
-<<<<<<< HEAD
 
 def notActivatedScreen(display):
     display.fill(0)
@@ -50,5 +46,3 @@ def notActivatedScreen(display):
     display.text("Activate", 32, 51, 1)
     
     display.show()
-=======
->>>>>>> bf6fbf85ad81311516e7025d72a618af91539d2c

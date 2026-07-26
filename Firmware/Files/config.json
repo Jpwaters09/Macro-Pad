@@ -1,12 +1,8 @@
 {
-<<<<<<< HEAD
     "Activated": false,
-=======
-    "USB HID On": true,
->>>>>>> bf6fbf85ad81311516e7025d72a618af91539d2c
-    "Serial Number": "",
+    "Serial Number": "JWMP01000000001",
     "Software Version": "v1.0.0",
     "Firmware Version": "v1.28.0",
-    "Device Name": "",
+    "Device Name": "Jacob's Macro Pad",
     "Sleep Time": 120000
 }
