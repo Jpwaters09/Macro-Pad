@@ -267,7 +267,7 @@ while True:
                     last_press = time.ticks_ms()
 
             elif pressed and prev[i] and not encoderLongPressFired:
-                if encoderPressStart is not None and time.ticks_diff(time.ticks_ms(), encoderPressStart) >= 1000:
+                if encoderPressStart is not None and time.ticks_diff(time.ticks_ms(), encoderPressStart) >= 500:
                     encoderLongPressFired = True
                     encoderLongPress()
 
