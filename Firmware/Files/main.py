@@ -1,4 +1,5 @@
-from machine import Pin, I2C
+from machine import Pin, I2C, Timer
+import machine
 import ssd1306
 from time import sleep
 import time
@@ -98,54 +99,79 @@ lock = _thread.allocate_lock()
 displayBrightnessLowered = False
 displaySleep = False
 
-R_START     = 0x0
-R_CW_FINAL  = 0x1
-R_CW_BEGIN  = 0x2
-R_CW_NEXT   = 0x3
-R_CCW_BEGIN = 0x4
-R_CCW_FINAL = 0x5
-R_CCW_NEXT  = 0x6
-
-DIR_CW  = 0x10
-DIR_CCW = 0x20
-
-ttable = (
-    (R_START,    R_CW_BEGIN,  R_CCW_BEGIN, R_START),
-    (R_CW_NEXT,  R_START,     R_CW_FINAL,  R_START | DIR_CW),
-    (R_CW_NEXT,  R_CW_BEGIN,  R_START,     R_START),
-    (R_CW_NEXT,  R_CW_BEGIN,  R_CW_FINAL,  R_START),
-    (R_CCW_NEXT, R_START,     R_CCW_BEGIN, R_START),
-    (R_CCW_NEXT, R_CCW_FINAL, R_START,     R_START | DIR_CCW),
-    (R_CCW_NEXT, R_CCW_FINAL, R_CCW_BEGIN, R_START),
-)
-
 encoderA = Pin("ENCODER_A", Pin.IN, Pin.PULL_UP)
 encoderB = Pin("ENCODER_B", Pin.IN, Pin.PULL_UP)
 
-encoder_state   = R_START
-encoder_delta   = 0
-encoder_velocity = 0.0
-last_encoder_ms = time.ticks_ms()
+ENCODER_REVERSED = False
+ENCODER_REVERSE_LOCK_MS = 120
+ENCODER_ACCEL = True
+ACCEL_FAST_MS = 45
+ACCEL_MED_MS = 90
+ENCODER_MAX_SEND = 8
 
-def encoder_handler(pin):
-    global encoder_state, encoder_delta, last_press
+_QEM = (0, -1,  1, 0,
+        1,  0,  0, -1,
+       -1,  0,  0, 1,
+        0,  1, -1, 0)
 
-    pinstate = (encoderA.value() << 1) | encoderB.value()
-    encoder_state = ttable[encoder_state & 0x0F][pinstate]
-    direction = encoder_state & 0x30
+ENCODER_DEBOUNCE = 4
 
-    if direction == DIR_CW:
-        encoder_delta += 1
-        
-    elif direction == DIR_CCW:
-        encoder_delta -= 1
+_a0 = encoderA.value()
+_b0 = encoderB.value()
+encoder_state = [_a0, _b0, 0, 0, (_a0 << 1) | _b0, 0, 0]
 
-    if direction:
-        with lock:
-            last_press = time.ticks_ms()
+def encoder_sample(timer, A=encoderA, B=encoderB, S=encoder_state, Q=_QEM, DEB=ENCODER_DEBOUNCE):
+    a = A.value()
 
-encoderA.irq(trigger=Pin.IRQ_FALLING | Pin.IRQ_RISING, handler=encoder_handler)
-encoderB.irq(trigger=Pin.IRQ_FALLING | Pin.IRQ_RISING, handler=encoder_handler)
+    if a != S[0]:
+        S[2] += 1
+
+        if S[2] >= DEB:
+            S[0] = a
+            S[2] = 0
+
+    else:
+        S[2] = 0
+
+    b = B.value()
+
+    if b != S[1]:
+        S[3] += 1
+
+        if S[3] >= DEB:
+            S[1] = b
+            S[3] = 0
+
+    else:
+        S[3] = 0
+
+    new = (S[0] << 1) | S[1]
+    prev = S[4]
+
+    if new != prev:
+        if (new ^ prev) == 3:
+            S[6] += 1
+
+            if S[6] >= 40:
+                S[4] = new
+                S[6] = 0
+
+        else:
+            S[5] += Q[(prev << 2) | new]
+            S[4] = new
+            S[6] = 0
+
+    else:
+        S[6] = 0
+
+encoder_timer = Timer()
+
+encoder_timer.init(
+    mode=Timer.PERIODIC,
+    freq=8000,
+    callback=encoder_sample,
+    hard=True
+)
 
 stopIdleWatcher = False
 
@@ -191,59 +217,98 @@ prev = [not btn.value() for btn in macroButtons]
 pressStartTimes = [None] * len(macroButtons)
 nextRepeatTime  = [None] * len(macroButtons)
 
+lastStepDir = 0
+lastStepTime = time.ticks_ms()
+
+dbgSent = 0
+dbgLocked = 0
+dbgWorstUs = 0
+dbgLastPrint = time.ticks_ms()
+
 encoderPressStart = None
 encoderLongPressFired = False
-encoder_last_dir = 0
-encoder_dir_lock_until = 0
 
 while True:
-    now = time.ticks_ms()
-    dt = time.ticks_diff(now, last_encoder_ms) / 1000.0
-    last_encoder_ms = now
+    irq_state = machine.disable_irq()
 
-    encoder_velocity *= max(0.0, 1.0 - (dt * 7.5))
+    raw = encoder_state[5]
 
-    if encoder_delta != 0:
-        raw = encoder_delta
-        encoder_delta = 0
+    if raw >= 4:
+        steps = raw // 4
 
-        current_dir = 1 if raw > 0 else -1
-        if current_dir != encoder_last_dir and time.ticks_diff(now, encoder_dir_lock_until) < 0:
-            raw = 0
-            
-        else:
-            encoder_last_dir = current_dir
-            
-            if abs(encoder_velocity) > 3.0:
-                encoder_dir_lock_until = time.ticks_add(now, 40)
+    elif raw <= -4:
+        steps = -((-raw) // 4)
 
-        if raw != 0:
-            encoder_velocity += raw * 1.2
+    else:
+        steps = 0
+    encoder_state[5] -= steps * 4
 
-            if encoder_velocity > 10:
-                encoder_velocity = 10.0
-            elif encoder_velocity < -10:
-                encoder_velocity = -10.0
+    machine.enable_irq(irq_state)
 
-    steps = int(round(encoder_velocity))
+    if ENCODER_REVERSED:
+        steps = -steps
 
-    if abs(steps) >= 2 and abs(encoder_velocity) < 1.7:
-        steps = 1 if encoder_velocity > 0 else -1
+    accel = 1
 
     if steps != 0:
-        encoder_velocity *= 0.55
+        now = time.ticks_ms()
+        stepGap = time.ticks_diff(now, lastStepTime)
+        stepDir = 1 if steps > 0 else -1
+        if stepDir != lastStepDir and stepGap < ENCODER_REVERSE_LOCK_MS:
+            dbgLocked += abs(steps)
+            steps = 0
 
+        else:
+            if ENCODER_ACCEL and stepDir == lastStepDir:
+                if stepGap < ACCEL_FAST_MS:
+                    accel = 3
+
+                elif stepGap < ACCEL_MED_MS:
+                    accel = 2
+
+            lastStepDir = stepDir
+            lastStepTime = now
+
+    if steps != 0:
         if displaySleep:
             displaySleep = False
             displayBrightnessLowered = False
             display.poweron()
             increaseBrightness(display)
-            
+
         elif displayBrightnessLowered:
             displayBrightnessLowered = False
             increaseBrightness(display)
-            
-        loadedLayers[currentLayer]["keys"].rotaryChecker(keyboard, consumer, mouse, steps)
+
+        with lock:
+            last_press = time.ticks_ms()
+
+        direction = 1 if steps > 0 else -1
+        sendCount = min(abs(steps) * accel, ENCODER_MAX_SEND)
+        sendStart = time.ticks_us()
+
+        if steps > 0:
+            for _ in range(sendCount):
+                loadedLayers[currentLayer]["keys"].rotaryChecker(
+                    keyboard,
+                    consumer,
+                    mouse,
+                    1
+                )
+
+        else:
+            for _ in range(sendCount):
+                loadedLayers[currentLayer]["keys"].rotaryChecker(
+                    keyboard,
+                    consumer,
+                    mouse,
+                    -1
+                )
+
+        dbgSent += sendCount
+        sendUs = time.ticks_diff(time.ticks_us(), sendStart)
+        if sendUs > dbgWorstUs:
+            dbgWorstUs = sendUs
 
     for i, btn in enumerate(macroButtons):
         pressed = not btn.value()

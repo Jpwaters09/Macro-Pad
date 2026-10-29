@@ -2,6 +2,8 @@ import usb.device
 from usb.device.hid import HIDInterface
 import time
 
+_RELEASE = bytes(2)
+
 _CONSUMER_DESC = bytes([
     0x05, 0x0C,        # Usage Page (Consumer)
     0x09, 0x01,        # Usage (Consumer Control)
@@ -28,7 +30,8 @@ class ConsumerInterface(HIDInterface):
     def __init__(self):
         super().__init__(_CONSUMER_DESC, interface_str="Macro Pad")
         
-    def send_code(self, code):
+    def send_code(self, code, hold_ms=8):
         self.send_report(bytes([code & 0xFF, (code >> 8) & 0xFF]))
-        time.sleep_ms(50)
-        self.send_report(bytes([0x00, 0x00]))
+        time.sleep_ms(hold_ms)
+        self.send_report(_RELEASE)
+        time.sleep_ms(hold_ms)
