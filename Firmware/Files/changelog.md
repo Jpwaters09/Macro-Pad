@@ -1,7 +1,7 @@
 # v1.0.2 (latest)
 ## Fixes
  - Doubled default sleep time (from 120000ms to 240000ms)
- - Encoder logic - it now features acceleration and is smoother
+ - Encoder logic - now features acceleration and is smoother
 
 # v1.0.1
 ## Fixes
